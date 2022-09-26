@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 const ProductItem = () => {
   const [obj, setObj] = useState({})
@@ -16,6 +17,7 @@ const ProductItem = () => {
   const [picture, setPictures] = useState('')
   const [video, setVideo] = useState('')
   let path = window.location.pathname.split('/').splice(-1)[0]
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get(`http://localhost:3001/products/${path}`)
@@ -28,17 +30,17 @@ const ProductItem = () => {
         setDescr(res.data.description)
         setBrand(res.data.company.brand)
         setYear(res.data.company.year)
-        setSize(res.data.sizes)
-        setColor(res.data.colors)
-        setPictures(res.data.media.pictures)
-        setVideo(res.data.media.video)
+        setSize(res.data.size.join(','))
+        setColor(res.data.colors.join(','))
+        setPictures(res.data.media.pictures.join(','))
+        setVideo(res.data.media.video.join(','))
       })
   }, [])
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    let object = {
-      id: Math.random(),
+    let o = {
+      id: obj.id,
       name: name === '' ? obj.name : name,
       category: cat === '' ? obj.category : cat,
       price: price === '' ? obj.price : price,
@@ -54,16 +56,16 @@ const ProductItem = () => {
         year: year === '' ? obj.company?.year : year
       },
       rate: 0,
-      size: size.length === 0 ? obj.size : size.split(' '),
-      colors: color.length === 0 ? obj.colors : size.split(' '),
+      size: size === '' ? obj.size : size.split(' '),
+      colors: color === ''? obj.colors : color.split(' '),
       media: {
-        pictures: picture.length === 0 ? obj.media?.pictures : picture.split(' '),
-        video: video.length === 0 ? obj.media?.video : video.split(' ')
+        pictures: picture === ''? obj.media?.pictures : picture.split(' '),
+        video: video === '' ? obj.media?.video : video.split(' ')
       },
       qt: 10
     }
 
-    axios.patch(`http://localhost:3001/products/${path}`, object)
+    axios.patch(`http://localhost:3001/products/${path}`, o)
       .then(res => console.log(res.data))
   }
   return (

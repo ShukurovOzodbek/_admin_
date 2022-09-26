@@ -1,6 +1,6 @@
 import { Box, Stack, Button, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import React from 'react'
+import React, { useEffect } from 'react'
 import GroupIcon from '@mui/icons-material/Group';
 import BallotIcon from '@mui/icons-material/Ballot';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
@@ -14,15 +14,17 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 const Layout = ({ children }) => {
     return (
         <Box sx={{ height: '100%', display: 'flex', width: '100%' }}>
-            <Stack sx={{ position: 'fixed', top: 0, bottom: '0' , width: '20%', height: '100%', background: '#1B1C1E', padding: '30px' }}>
-                <Stack sx={{ justifyContent: 'flex-start', gap: '60px' }}>
+            <Stack sx={{ position: 'fixed', top: 0, bottom: '0', width: '20%', height: '100%', background: '#1B1C1E', padding: '30px' }}>
+                <Stack sx={{ justifyContent: 'flex-start', gap: '60px',width: '100%' }}>
                     <Box sx={{ width: '100px', height: '50px' }}>
-                        <img style={{ width: '150px' }} src="/images/logo.png" alt="" />
+                        <Link to={'/overview'}>
+                            <img style={{ width: '150px' }} src="/images/logo.png" alt="" />
+                        </Link>
                     </Box>
-                    <Stack>
-                        <Link to={'/overview'} sx={{ textDecoration: "none" }}><Button sx={{ color: 'white', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px' }} > <BallotIcon sx={{ fontSize: '18px' }} />Overview</Button></Link>
-                        <Link to={'/users'} sx={{ textDecoration: "none" }}><Button sx={{ color: 'white', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px' }} > <GroupIcon sx={{ fontSize: '18px' }} /> Users</Button></Link>
-                        <Link to={'/products'} sx={{ textDecoration: "none" }}><Button sx={{ color: 'white', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px' }} > <ProductionQuantityLimitsIcon sx={{ fontSize: '18px' }} />Products</Button></Link>
+                    <Stack sx={{width: '100%'}}>
+                        <Link id='link' to={'/overview'} style={{ textDecoration: "none", width: '250px' }}><Button sx={{ color: 'white', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px' }} > <BallotIcon sx={{ fontSize: '18px' }} />Overview</Button></Link>
+                        <Link id='link' to={'/users'} style={{ textDecoration: "none", width: '250px' }}><Button sx={{ color: 'white', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px' }} > <GroupIcon sx={{ fontSize: '18px' }} /> Users</Button></Link>
+                        <Link id='link' to={'/products'} style={{ textDecoration: "none", width: '250px' }}><Button sx={{ color: 'white', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px' }} > <ProductionQuantityLimitsIcon sx={{ fontSize: '18px' }} />Products</Button></Link>
                     </Stack>
                     <Button sx={{ color: 'white', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', justifyContent: 'flex-start', marginTop: '160px' }}> <LogoutIcon sx={{ fontSize: '18px' }} /> Log out</Button>
                 </Stack>
